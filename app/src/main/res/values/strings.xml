@@ -3,4 +3,6 @@
     <string name="failed_to_fetch_data">Ошибка при загрузке данных</string>
     <string name="currency_value_clip_label">Курс валюты</string>
     <string name="currency_value_copied_to_clipboard">Курс валюты скопирован в буфер обмена</string>
+    <string name="currency_converter">Конвертер валют</string>
+    <string name="about_app">О приложении</string>
 </resources>

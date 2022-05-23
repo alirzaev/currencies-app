@@ -84,12 +84,7 @@ class CurrenciesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_currencies, container, false)
-
-        val list = view.findViewById<RecyclerView>(R.id.currencies_list_view)
-        list.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-
-        return view
+        return inflater.inflate(R.layout.fragment_currencies, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -101,6 +96,7 @@ class CurrenciesFragment : Fragment() {
             model.fetchCurrencies()
         }
 
+        list.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         list.adapter = CurrenciesListAdapter(emptyList())
         model.currencies.observe(viewLifecycleOwner) { currencies ->
             list.adapter = CurrenciesListAdapter(ArrayList<Currency>(currencies))
