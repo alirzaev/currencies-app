@@ -29,7 +29,7 @@ class CurrenciesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _bindingClass = FragmentCurrenciesBinding.inflate(inflater, container, false)
-        return bindingClass.root
+        return _bindingClass?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
