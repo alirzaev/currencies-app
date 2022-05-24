@@ -19,7 +19,8 @@ fun parseExpression(currencies: Map<String, Currency>, expression: String): Pars
     val currOut = currencies[matches.groupValues[4].uppercase()]
 
     return if (currIn != null && currOut != null) {
-        val converted = (valueIn * currIn.value) / currOut.value
+        val converted =
+            (valueIn * currIn.value / currIn.nominal) / (currOut.value / currOut.nominal)
 
         ParseResult(currIn, currOut, valueIn, converted)
     } else {
