@@ -13,7 +13,7 @@ import retrofit2.Response
 class CurrenciesViewModel : ViewModel() {
     private val _currencies = MutableLiveData<List<Currency>>()
 
-    private val _isLoading = MutableLiveData<Boolean>(false)
+    private val _isLoading = MutableLiveData(false)
 
     private val _toastMessage = MutableLiveData<Int?>()
 

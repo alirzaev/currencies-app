@@ -28,7 +28,17 @@ class ConverterActivity : AppCompatActivity() {
             if (it.size != currencies.size) {
                 null
             } else {
-                currencies.associateBy { c -> c.charCode }
+                (currencies + arrayListOf(
+                    Currency(
+                        "",
+                        "643",
+                        "RUB",
+                        1,
+                        "Российский рубль",
+                        1.0,
+                        1.0
+                    )
+                )).associateBy { c -> c.charCode }
             }
         }
 
