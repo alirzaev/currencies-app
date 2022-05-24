@@ -8,6 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="danger">#DC3545</color>
+    <color name="success">#198754</color>
+
     <color name="orange_200">#FFAB91</color>
     <color name="orange_500">#FF5722</color>
     <color name="orange_700">#E64A19</color>

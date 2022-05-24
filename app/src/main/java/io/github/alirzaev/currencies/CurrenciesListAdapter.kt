@@ -18,11 +18,15 @@ class CurrenciesListAdapter(private var currencies: List<Currency>) :
         val currencyName: TextView
         val currencyValue: TextView
         val currencyCode: TextView
+        val currencyNominal: TextView
+        val currencyDelta: TextView
 
         init {
             currencyName = itemView.findViewById(R.id.currency_name)
             currencyValue = itemView.findViewById(R.id.currency_value)
             currencyCode = itemView.findViewById(R.id.currency_charcode)
+            currencyNominal = itemView.findViewById(R.id.currency_nominal)
+            currencyDelta = itemView.findViewById(R.id.currency_delta)
         }
     }
 
@@ -38,9 +42,20 @@ class CurrenciesListAdapter(private var currencies: List<Currency>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val c = currencies[position]
+        val context = holder.itemView.context
         holder.currencyName.text = c.name
         holder.currencyValue.text = c.value.toString()
         holder.currencyCode.text = c.charCode
+        holder.currencyNominal.text =
+            holder.itemView.context.getString(R.string.currency_nominal, c.nominal)
+        val delta = c.value - c.previous
+
+        holder.currencyDelta.text = String.format("%1$+.4f", delta)
+        holder.currencyDelta.setTextColor(
+            if (delta > 0) context.resources.getColor(R.color.success) else context.resources.getColor(
+                R.color.danger
+            )
+        )
 
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
