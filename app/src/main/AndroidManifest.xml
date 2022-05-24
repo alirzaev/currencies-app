@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Currencies"
         tools:targetApi="31">
         <activity
+            android:name=".converter.ConverterActivity"
+            android:exported="false" />
+        <activity
             android:name=".CurrenciesActivity"
             android:exported="true">
             <intent-filter>
