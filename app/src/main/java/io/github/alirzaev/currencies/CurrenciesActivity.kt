@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import io.github.alirzaev.currencies.converter.ConverterActivity
 import io.github.alirzaev.currencies.databinding.ActivityCurrenciesBinding
 
 class CurrenciesActivity : AppCompatActivity() {
-    private lateinit var model: CurrenciesViewModel
+    private val model: CurrenciesViewModel by viewModels()
 
     private lateinit var bindingClass: ActivityCurrenciesBinding
 
@@ -23,7 +23,6 @@ class CurrenciesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         bindingClass = ActivityCurrenciesBinding.inflate(layoutInflater)
         setContentView(bindingClass.root)
-        model = ViewModelProvider(this).get(CurrenciesViewModel::class.java)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

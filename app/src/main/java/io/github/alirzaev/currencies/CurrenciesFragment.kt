@@ -6,23 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import io.github.alirzaev.currencies.databinding.FragmentCurrenciesBinding
 
 class CurrenciesFragment : Fragment() {
-    private lateinit var model: CurrenciesViewModel
+    private val model: CurrenciesViewModel by activityViewModels()
 
     private var _bindingClass: FragmentCurrenciesBinding? = null
 
     private val bindingClass get() = _bindingClass!!
 
     private val adapter = CurrenciesListAdapter(emptyList())
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        model = ViewModelProvider(requireActivity()).get(CurrenciesViewModel::class.java)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -7,13 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import io.github.alirzaev.currencies.R
 import io.github.alirzaev.currencies.databinding.FragmentConverterBinding
 import io.github.alirzaev.currencies.utils.dto.Currency
 import io.github.alirzaev.currencies.utils.parseExpression
 
 class ConverterFragment : Fragment() {
+    private val model: ConverterViewModel by activityViewModels()
+
     private var _bindingClass: FragmentConverterBinding? = null
 
     private val bindingClass get() = _bindingClass!!
@@ -22,7 +24,6 @@ class ConverterFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val model = ViewModelProvider(requireActivity()).get(ConverterViewModel::class.java)
         currencies = model.currencies.value!!
     }
 

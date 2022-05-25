@@ -2,6 +2,7 @@ package io.github.alirzaev.currencies.converter
 
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import io.github.alirzaev.currencies.R
@@ -11,7 +12,7 @@ import io.github.alirzaev.currencies.utils.dto.Currency
 class ConverterActivity : AppCompatActivity() {
     private lateinit var bindingClass: ActivityConverterBinding
 
-    private lateinit var model: ConverterViewModel
+    private val model: ConverterViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,8 +21,6 @@ class ConverterActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setTitle(R.string.currency_converter)
-
-        model = ViewModelProvider(this).get(ConverterViewModel::class.java)
 
         val data = (intent.getSerializableExtra("CURRENCIES") as ArrayList<*>).let {
             val currencies = it.filterIsInstance<Currency>()
