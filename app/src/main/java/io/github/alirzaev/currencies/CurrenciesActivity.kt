@@ -1,5 +1,6 @@
 package io.github.alirzaev.currencies
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -43,6 +44,12 @@ class CurrenciesActivity : AppCompatActivity() {
                         }
                     )
                 }
+            R.id.about_menu_item ->
+                AlertDialog.Builder(this).setTitle(R.string.about_app)
+                    .setMessage(R.string.about_app_description)
+                    .setPositiveButton(android.R.string.ok) { _, _ -> ; }
+                    .create()
+                    .show()
         }
 
         return true
