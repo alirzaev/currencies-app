@@ -1,8 +1,9 @@
-package io.github.alirzaev.currencies
+package io.github.alirzaev.currencies.currencies
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.github.alirzaev.currencies.R
 import io.github.alirzaev.currencies.utils.CurrencyService
 import io.github.alirzaev.currencies.utils.dto.CurrenciesInfo
 import io.github.alirzaev.currencies.utils.dto.Currency

@@ -1,4 +1,4 @@
-package io.github.alirzaev.currencies
+package io.github.alirzaev.currencies.currencies
 
 import android.os.Bundle
 import android.view.LayoutInflater

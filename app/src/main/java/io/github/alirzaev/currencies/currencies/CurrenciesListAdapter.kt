@@ -1,4 +1,4 @@
-package io.github.alirzaev.currencies
+package io.github.alirzaev.currencies.currencies
 
 import android.annotation.SuppressLint
 import android.content.ClipData
@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import io.github.alirzaev.currencies.R
 import io.github.alirzaev.currencies.utils.dto.Currency
 
 class CurrenciesListAdapter(private var currencies: List<Currency>) :
