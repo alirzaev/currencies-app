@@ -8,14 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import io.github.alirzaev.currencies.currencies.CurrenciesViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import io.github.alirzaev.currencies.currencies.MainViewModel
 import io.github.alirzaev.currencies.R
 import io.github.alirzaev.currencies.databinding.FragmentConverterBinding
-import io.github.alirzaev.currencies.utils.dto.Currency
+import io.github.alirzaev.currencies.data.source.remote.dto.Currency
 import io.github.alirzaev.currencies.utils.parseExpression
 
+@AndroidEntryPoint
 class ConverterFragment : Fragment() {
-    private val model: CurrenciesViewModel by activityViewModels()
+    private val model: MainViewModel by activityViewModels()
 
     private var _bindingClass: FragmentConverterBinding? = null
 
@@ -25,7 +27,7 @@ class ConverterFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        currencies = (model.currencies.value!! + arrayListOf(
+        currencies = (model.uiState.value!!.currencies + arrayListOf(
             Currency(
                 "",
                 "643",

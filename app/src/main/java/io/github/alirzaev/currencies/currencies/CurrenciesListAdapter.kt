@@ -11,7 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import io.github.alirzaev.currencies.R
-import io.github.alirzaev.currencies.utils.dto.Currency
+import io.github.alirzaev.currencies.data.source.remote.dto.Currency
 
 class CurrenciesListAdapter(private var currencies: List<Currency>) :
     RecyclerView.Adapter<CurrenciesListAdapter.ViewHolder>() {

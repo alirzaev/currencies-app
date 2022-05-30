@@ -8,10 +8,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.alirzaev.currencies.databinding.FragmentCurrenciesBinding
 
+@AndroidEntryPoint
 class CurrenciesFragment : Fragment() {
-    private val model: CurrenciesViewModel by activityViewModels()
+    private val model: MainViewModel by activityViewModels()
 
     private var _bindingClass: FragmentCurrenciesBinding? = null
 
@@ -43,17 +45,17 @@ class CurrenciesFragment : Fragment() {
             )
             currenciesListView.adapter = adapter
 
-            model.currencies.observe(viewLifecycleOwner) { currencies ->
-                adapter.setItems(currencies)
+            model.uiState.observe(viewLifecycleOwner) { uiState ->
+                adapter.setItems(uiState.currencies)
             }
 
-            model.isLoading.observe(viewLifecycleOwner) { isLoading ->
-                refreshLayout.isRefreshing = isLoading
+            model.uiState.observe(viewLifecycleOwner) { uiState ->
+                refreshLayout.isRefreshing = uiState.isLoading
             }
 
-            model.toastMessage.observe(viewLifecycleOwner) { messageId ->
-                if (messageId != null && context != null) {
-                    val string = requireContext().getString(messageId)
+            model.uiState.observe(viewLifecycleOwner) { uiState ->
+                if (uiState.toastMessage != null && context != null) {
+                    val string = requireContext().getString(uiState.toastMessage)
                     Toast.makeText(context, string, Toast.LENGTH_SHORT).show()
                     model.toastMessageShown()
                 }

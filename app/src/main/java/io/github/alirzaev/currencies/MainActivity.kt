@@ -7,11 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import io.github.alirzaev.currencies.currencies.CurrenciesViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import io.github.alirzaev.currencies.currencies.MainViewModel
 import io.github.alirzaev.currencies.databinding.ActivityMainBinding
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val model: CurrenciesViewModel by viewModels()
+    private val model: MainViewModel by viewModels()
 
     private lateinit var bindingClass: ActivityMainBinding
 
@@ -26,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         bindingClass.toolbar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.converter_menu_item ->
-                    model.currencies.value?.let {
+                    model.uiState.value?.currencies?.let {
                         navController.navigate(R.id.nav_converter)
                     }
                 R.id.about_menu_item ->

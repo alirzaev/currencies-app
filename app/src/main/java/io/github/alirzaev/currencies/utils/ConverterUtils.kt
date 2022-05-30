@@ -1,6 +1,6 @@
 package io.github.alirzaev.currencies.utils
 
-import io.github.alirzaev.currencies.utils.dto.Currency
+import io.github.alirzaev.currencies.data.source.remote.dto.Currency
 
 data class ParseResult(
     val inputCurrency: Currency,

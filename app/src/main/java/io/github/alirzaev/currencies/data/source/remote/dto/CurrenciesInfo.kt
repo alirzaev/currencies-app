@@ -1,4 +1,4 @@
-package io.github.alirzaev.currencies.utils.dto
+package io.github.alirzaev.currencies.data.source.remote.dto
 
 import com.google.gson.annotations.SerializedName
 import com.google.gson.annotations.Expose
