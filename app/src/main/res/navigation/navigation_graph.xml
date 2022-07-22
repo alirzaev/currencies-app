@@ -7,11 +7,11 @@
 
     <fragment
         android:id="@+id/nav_currencies"
-        android:name="io.github.alirzaev.currencies.currencies.CurrenciesFragment"
+        android:name="io.github.alirzaev.currencies.features.currencies.CurrenciesFragment"
         android:label="@string/app_name" />
 
     <fragment
         android:id="@+id/nav_converter"
-        android:name="io.github.alirzaev.currencies.converter.ConverterFragment"
+        android:name="io.github.alirzaev.currencies.features.converter.ConverterFragment"
         android:label="@string/currency_converter" />
 </navigation>

@@ -50,7 +50,7 @@ class AppModule {
 @InstallIn(SingletonComponent::class)
 class CurrencyRepositoryModule {
     @Provides
-    fun provideTaskRepository(
+    fun provideCurrencyRepository(
         @AppModule.RemoteCurrencyDataSource currencyDataSource: CurrencyDataSource
     ): CurrencyRepository {
         return DefaultCurrencyRepository(currencyDataSource)

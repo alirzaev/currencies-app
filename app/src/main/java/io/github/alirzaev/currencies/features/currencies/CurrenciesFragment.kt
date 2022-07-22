@@ -1,4 +1,4 @@
-package io.github.alirzaev.currencies.currencies
+package io.github.alirzaev.currencies.features.currencies
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,7 +19,7 @@ class CurrenciesFragment : Fragment() {
 
     private val bindingClass get() = _bindingClass!!
 
-    private val adapter = CurrenciesListAdapter(emptyList())
+    private val adapter = CurrenciesListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

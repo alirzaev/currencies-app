@@ -1,4 +1,4 @@
-package io.github.alirzaev.currencies.converter
+package io.github.alirzaev.currencies.features.converter
 
 import android.os.Bundle
 import android.text.Editable
@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
-import io.github.alirzaev.currencies.currencies.MainViewModel
+import io.github.alirzaev.currencies.features.currencies.MainViewModel
 import io.github.alirzaev.currencies.R
 import io.github.alirzaev.currencies.databinding.FragmentConverterBinding
 import io.github.alirzaev.currencies.data.source.remote.dto.Currency

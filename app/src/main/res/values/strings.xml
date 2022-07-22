@@ -8,5 +8,5 @@
     <string name="currency_converter_hint">1 usd in rub</string>
     <string name="currency_value_with_code">%1$.2f %2$s</string>
     <string name="currency_nominal">Номинал: %1$d</string>
-    <string name="about_app_description">Приложение для просмотра курса валют от ЦБ РФ</string>
+    <string name="about_app_description">Приложение для просмотра официальных курсов валют Банка России</string>
 </resources>

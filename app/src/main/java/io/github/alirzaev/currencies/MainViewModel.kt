@@ -1,4 +1,4 @@
-package io.github.alirzaev.currencies.currencies
+package io.github.alirzaev.currencies.features.currencies
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,6 +1,5 @@
 package io.github.alirzaev.currencies
 
-import android.app.AlertDialog
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +7,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
-import io.github.alirzaev.currencies.currencies.MainViewModel
+import io.github.alirzaev.currencies.features.about.AboutAppDialogFragment
+import io.github.alirzaev.currencies.features.currencies.MainViewModel
 import io.github.alirzaev.currencies.databinding.ActivityMainBinding
 
 @AndroidEntryPoint
@@ -32,11 +32,7 @@ class MainActivity : AppCompatActivity() {
                         navController.navigate(R.id.nav_converter)
                     }
                 R.id.about_menu_item ->
-                    AlertDialog.Builder(this).setTitle(R.string.about_app)
-                        .setMessage(R.string.about_app_description)
-                        .setPositiveButton(android.R.string.ok) { _, _ -> ; }
-                        .create()
-                        .show()
+                    AboutAppDialogFragment().show(supportFragmentManager, null)
             }
 
             true
