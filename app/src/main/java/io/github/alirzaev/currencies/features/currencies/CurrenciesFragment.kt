@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import io.github.alirzaev.currencies.R
 import io.github.alirzaev.currencies.databinding.FragmentCurrenciesBinding
 
 @AndroidEntryPoint
@@ -44,6 +47,21 @@ class CurrenciesFragment : Fragment() {
                 )
             )
             currenciesListView.adapter = adapter
+            currenciesListView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    if (dy > 0) {
+                        currenciesConverterFab.hide()
+                    } else if (dy < 0) {
+                        currenciesConverterFab.show()
+                    }
+                }
+            })
+
+            currenciesConverterFab.setOnClickListener {
+                activity
+                    ?.findNavController(R.id.nav_host_fragment_content_main)
+                    ?.navigate(R.id.nav_converter)
+            }
 
             model.uiState.observe(viewLifecycleOwner) { uiState ->
                 adapter.setItems(uiState.currencies)
