@@ -34,8 +34,12 @@ class ExchangeRatesListAdapter : RecyclerView.Adapter<ExchangeRatesListAdapter.V
 
             exchangeRateDelta.text = String.format("%1$+.4f", delta)
             exchangeRateDelta.setTextColor(
-                if (delta > 0) context.resources.getColor(R.color.success) else context.resources.getColor(
-                    R.color.danger
+                if (delta > 0) context.resources.getColor(
+                    R.color.success,
+                    context.theme
+                ) else context.resources.getColor(
+                    R.color.danger,
+                    context.theme
                 )
             )
 
