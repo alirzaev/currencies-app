@@ -1,12 +1,16 @@
 package io.github.alirzaev.currencies.di
 
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import io.github.alirzaev.currencies.data.source.CurrenciesDataSource
 import io.github.alirzaev.currencies.data.source.ExchangeRatesDataSource
 import io.github.alirzaev.currencies.data.source.ExchangeRatesRepository
 import io.github.alirzaev.currencies.data.source.DefaultExchangeRatesRepository
+import io.github.alirzaev.currencies.data.source.assets.CurrenciesAssetsDataSource
 import io.github.alirzaev.currencies.data.source.remote.ExchangeRatesApi
 import io.github.alirzaev.currencies.data.source.remote.ExchangeRatesRemoteDataSource
 import kotlinx.coroutines.CoroutineDispatcher
@@ -41,6 +45,18 @@ class AppModule {
             ioDispatcher
         )
     }
+
+    @Qualifier
+    @Retention(AnnotationRetention.RUNTIME)
+    annotation class AssetsCurrenciesDataSource
+
+    @Provides
+    @AssetsCurrenciesDataSource
+    fun provideCurrenciesDataSource(
+        @ApplicationContext context: Context
+    ): CurrenciesDataSource {
+        return CurrenciesAssetsDataSource(context)
+    }
 }
 
 @Module
@@ -60,8 +76,9 @@ class NetworkModule {
 class ExchangeRatesRepositoryModule {
     @Provides
     fun provideExchangeRatesRepository(
-        @AppModule.RemoteExchangeRatesDataSource exchangeRatesDataSource: ExchangeRatesDataSource
+        @AppModule.RemoteExchangeRatesDataSource exchangeRatesDataSource: ExchangeRatesDataSource,
+        @AppModule.AssetsCurrenciesDataSource currenciesDataSource: CurrenciesDataSource
     ): ExchangeRatesRepository {
-        return DefaultExchangeRatesRepository(exchangeRatesDataSource)
+        return DefaultExchangeRatesRepository(exchangeRatesDataSource, currenciesDataSource)
     }
 }
