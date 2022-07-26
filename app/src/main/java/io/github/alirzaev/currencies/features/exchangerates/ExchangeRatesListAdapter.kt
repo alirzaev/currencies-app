@@ -1,4 +1,4 @@
-package io.github.alirzaev.currencies.features.currencies
+package io.github.alirzaev.currencies.features.exchangerates
 
 import android.annotation.SuppressLint
 import android.content.ClipData
@@ -11,29 +11,29 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import io.github.alirzaev.currencies.R
-import io.github.alirzaev.currencies.data.source.remote.dto.Currency
+import io.github.alirzaev.currencies.data.source.remote.dto.ExchangeRate
 
-class CurrenciesListAdapter : RecyclerView.Adapter<CurrenciesListAdapter.ViewHolder>() {
+class ExchangeRatesListAdapter : RecyclerView.Adapter<ExchangeRatesListAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val currencyName: TextView = itemView.findViewById(R.id.currency_name)
-        private val currencyValue: TextView = itemView.findViewById(R.id.currency_value)
+        private val exchangeRateValue: TextView = itemView.findViewById(R.id.exchange_rate_value)
         private val currencyCode: TextView = itemView.findViewById(R.id.currency_charcode)
         private val currencyNominal: TextView = itemView.findViewById(R.id.currency_nominal)
-        private val currencyDelta: TextView = itemView.findViewById(R.id.currency_delta)
+        private val exchangeRateDelta: TextView = itemView.findViewById(R.id.exchange_rate_delta)
 
-        fun bind(currency: Currency) {
+        fun bind(exchangeRate: ExchangeRate) {
             val context = itemView.context
 
-            currencyName.text = currency.name
-            currencyValue.text = currency.value.toString()
-            currencyCode.text = currency.charCode
+            currencyName.text = exchangeRate.name
+            exchangeRateValue.text = exchangeRate.value.toString()
+            currencyCode.text = exchangeRate.charCode
             currencyNominal.text =
-                context.getString(R.string.currency_nominal, currency.nominal)
-            val delta = currency.value - currency.previous
+                context.getString(R.string.currency_nominal, exchangeRate.nominal)
+            val delta = exchangeRate.value - exchangeRate.previous
 
-            currencyDelta.text = String.format("%1$+.4f", delta)
-            currencyDelta.setTextColor(
+            exchangeRateDelta.text = String.format("%1$+.4f", delta)
+            exchangeRateDelta.setTextColor(
                 if (delta > 0) context.resources.getColor(R.color.success) else context.resources.getColor(
                     R.color.danger
                 )
@@ -43,14 +43,14 @@ class CurrenciesListAdapter : RecyclerView.Adapter<CurrenciesListAdapter.ViewHol
                 val clipboard =
                     context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText(
-                    context.getString(R.string.currency_value_clip_label),
-                    currency.value.toString()
+                    context.getString(R.string.exchange_rate_clip_label),
+                    exchangeRate.value.toString()
                 )
                 clipboard.setPrimaryClip(clip)
 
                 Toast.makeText(
                     context,
-                    R.string.currency_value_copied_to_clipboard,
+                    R.string.exchange_rate_copied_to_clipboard,
                     Toast.LENGTH_SHORT
                 )
                     .show()
@@ -58,11 +58,11 @@ class CurrenciesListAdapter : RecyclerView.Adapter<CurrenciesListAdapter.ViewHol
         }
     }
 
-    private var currencies: List<Currency> = emptyList()
+    private var exchangeRates: List<ExchangeRate> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.currency_row_item,
+            R.layout.item_holder_exchange_rate,
             parent,
             false
         )
@@ -71,14 +71,14 @@ class CurrenciesListAdapter : RecyclerView.Adapter<CurrenciesListAdapter.ViewHol
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(currencies[position])
+        holder.bind(exchangeRates[position])
     }
 
-    override fun getItemCount() = currencies.size
+    override fun getItemCount() = exchangeRates.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setItems(items: List<Currency>) {
-        currencies = items
+    fun setItems(items: List<ExchangeRate>) {
+        exchangeRates = items
         notifyDataSetChanged()
     }
 }

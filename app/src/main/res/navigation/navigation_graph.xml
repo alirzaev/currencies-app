@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_currencies"
-        android:name="io.github.alirzaev.currencies.features.currencies.CurrenciesFragment"
+        android:name="io.github.alirzaev.currencies.features.exchangerates.ExchangeRatesFragment"
         android:label="@string/app_name" />
 
     <fragment

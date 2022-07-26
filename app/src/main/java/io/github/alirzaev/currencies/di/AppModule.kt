@@ -4,11 +4,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import io.github.alirzaev.currencies.data.source.CurrencyDataSource
-import io.github.alirzaev.currencies.data.source.CurrencyRepository
-import io.github.alirzaev.currencies.data.source.DefaultCurrencyRepository
-import io.github.alirzaev.currencies.data.source.remote.CurrencyApi
-import io.github.alirzaev.currencies.data.source.remote.CurrencyRemoteDataSource
+import io.github.alirzaev.currencies.data.source.ExchangeRatesDataSource
+import io.github.alirzaev.currencies.data.source.ExchangeRatesRepository
+import io.github.alirzaev.currencies.data.source.DefaultExchangeRatesRepository
+import io.github.alirzaev.currencies.data.source.remote.ExchangeRatesApi
+import io.github.alirzaev.currencies.data.source.remote.ExchangeRatesRemoteDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import retrofit2.Retrofit
@@ -19,28 +19,25 @@ import javax.inject.Qualifier
 @InstallIn(SingletonComponent::class)
 class AppModule {
     @Provides
-    fun provideCurrencyApi(): CurrencyApi =
+    fun provideExchangeRatesApi(): ExchangeRatesApi =
         Retrofit.Builder()
             .baseUrl("https://www.cbr-xml-daily.ru")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(CurrencyApi::class.java)
-
-    @Provides
-    fun provideIoDispatch() = Dispatchers.IO
+            .create(ExchangeRatesApi::class.java)
 
     @Qualifier
     @Retention(AnnotationRetention.RUNTIME)
-    annotation class RemoteCurrencyDataSource
+    annotation class RemoteExchangeRatesDataSource
 
     @Provides
-    @RemoteCurrencyDataSource
-    fun provideCurrencyRemoteDataSource(
-        currencyApi: CurrencyApi,
-        ioDispatcher: CoroutineDispatcher
-    ): CurrencyDataSource {
-        return CurrencyRemoteDataSource(
-            currencyApi,
+    @RemoteExchangeRatesDataSource
+    fun provideExchangeRatesRemoteDataSource(
+        exchangeRatesApi: ExchangeRatesApi,
+        @NetworkModule.IoCoroutineDispatcher ioDispatcher: CoroutineDispatcher
+    ): ExchangeRatesDataSource {
+        return ExchangeRatesRemoteDataSource(
+            exchangeRatesApi,
             ioDispatcher
         )
     }
@@ -48,11 +45,23 @@ class AppModule {
 
 @Module
 @InstallIn(SingletonComponent::class)
-class CurrencyRepositoryModule {
+class NetworkModule {
+    @Qualifier
+    @Retention(AnnotationRetention.RUNTIME)
+    annotation class IoCoroutineDispatcher
+
     @Provides
-    fun provideCurrencyRepository(
-        @AppModule.RemoteCurrencyDataSource currencyDataSource: CurrencyDataSource
-    ): CurrencyRepository {
-        return DefaultCurrencyRepository(currencyDataSource)
+    @IoCoroutineDispatcher
+    fun provideIoDispatch() = Dispatchers.IO
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+class ExchangeRatesRepositoryModule {
+    @Provides
+    fun provideExchangeRatesRepository(
+        @AppModule.RemoteExchangeRatesDataSource exchangeRatesDataSource: ExchangeRatesDataSource
+    ): ExchangeRatesRepository {
+        return DefaultExchangeRatesRepository(exchangeRatesDataSource)
     }
 }

@@ -1,4 +1,4 @@
-package io.github.alirzaev.currencies.features.currencies
+package io.github.alirzaev.currencies.features.exchangerates
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,24 +11,25 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import io.github.alirzaev.currencies.MainViewModel
 import io.github.alirzaev.currencies.R
-import io.github.alirzaev.currencies.databinding.FragmentCurrenciesBinding
+import io.github.alirzaev.currencies.databinding.FragmentExchangeRatesBinding
 
 @AndroidEntryPoint
-class CurrenciesFragment : Fragment() {
+class ExchangeRatesFragment : Fragment() {
     private val model: MainViewModel by activityViewModels()
 
-    private var _bindingClass: FragmentCurrenciesBinding? = null
+    private var _bindingClass: FragmentExchangeRatesBinding? = null
 
     private val bindingClass get() = _bindingClass!!
 
-    private val adapter = CurrenciesListAdapter()
+    private val adapter = ExchangeRatesListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _bindingClass = FragmentCurrenciesBinding.inflate(inflater, container, false)
+        _bindingClass = FragmentExchangeRatesBinding.inflate(inflater, container, false)
         return _bindingClass?.root
     }
 
@@ -37,17 +38,17 @@ class CurrenciesFragment : Fragment() {
 
         with(bindingClass) {
             refreshLayout.setOnRefreshListener {
-                model.fetchCurrencies()
+                model.fetchExchangeRates()
             }
 
-            currenciesListView.addItemDecoration(
+            exchangeRatesListView.addItemDecoration(
                 DividerItemDecoration(
                     context,
                     DividerItemDecoration.VERTICAL
                 )
             )
-            currenciesListView.adapter = adapter
-            currenciesListView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            exchangeRatesListView.adapter = adapter
+            exchangeRatesListView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     if (dy > 0) {
                         currenciesConverterFab.hide()
@@ -64,7 +65,7 @@ class CurrenciesFragment : Fragment() {
             }
 
             model.uiState.observe(viewLifecycleOwner) { uiState ->
-                adapter.setItems(uiState.currencies)
+                adapter.setItems(uiState.exchangeRates)
             }
 
             model.uiState.observe(viewLifecycleOwner) { uiState ->

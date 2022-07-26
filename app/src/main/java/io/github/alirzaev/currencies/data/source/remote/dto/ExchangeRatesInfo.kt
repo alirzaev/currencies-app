@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.google.gson.annotations.Expose
 import java.util.HashMap
 
-data class CurrenciesInfo(
+data class ExchangeRatesInfo(
     @SerializedName("Date")
     @Expose
     val date: String,
@@ -23,5 +23,5 @@ data class CurrenciesInfo(
 
     @SerializedName("Valute")
     @Expose
-    val valute: HashMap<String, Currency>
+    val exchangeRates: HashMap<String, ExchangeRate>
 )

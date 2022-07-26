@@ -9,10 +9,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
-import io.github.alirzaev.currencies.features.currencies.MainViewModel
+import io.github.alirzaev.currencies.MainViewModel
 import io.github.alirzaev.currencies.R
 import io.github.alirzaev.currencies.databinding.FragmentConverterBinding
-import io.github.alirzaev.currencies.data.source.remote.dto.Currency
+import io.github.alirzaev.currencies.data.source.remote.dto.ExchangeRate
 import io.github.alirzaev.currencies.utils.parseExpression
 
 @AndroidEntryPoint
@@ -23,12 +23,12 @@ class ConverterFragment : Fragment() {
 
     private val bindingClass get() = _bindingClass!!
 
-    private lateinit var currencies: Map<String, Currency>
+    private lateinit var exchangeRates: Map<String, ExchangeRate>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        currencies = (model.uiState.value!!.currencies + arrayListOf(
-            Currency(
+        exchangeRates = (model.uiState.value!!.exchangeRates + arrayListOf(
+            ExchangeRate(
                 "",
                 "643",
                 "RUB",
@@ -56,7 +56,7 @@ class ConverterFragment : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val parseResult = parseExpression(currencies, s.toString())
+                val parseResult = parseExpression(exchangeRates, s.toString())
                 if (parseResult != null) {
                     with(bindingClass) {
                         currencyInput.text =
