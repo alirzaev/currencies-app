@@ -38,7 +38,7 @@ class ExchangeRatesFragment : Fragment() {
 
         with(bindingClass) {
             refreshLayout.setOnRefreshListener {
-                model.fetchExchangeRates()
+                model.fetchExchangeRates(true)
             }
 
             exchangeRatesListView.addItemDecoration(
@@ -59,13 +59,29 @@ class ExchangeRatesFragment : Fragment() {
             })
 
             currenciesConverterFab.setOnClickListener {
-                activity
-                    ?.findNavController(R.id.nav_host_fragment_content_main)
-                    ?.navigate(R.id.nav_converter)
+                val state = model.uiState.value ?: return@setOnClickListener
+
+                if (state.isLoading) {
+                    Toast.makeText(
+                        context,
+                        R.string.please_wait_data_is_being_loaded,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else if (state.currencies.isEmpty()) {
+                    Toast.makeText(
+                        context,
+                        R.string.exchange_rates_are_not_loaded,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    activity
+                        ?.findNavController(R.id.nav_host_fragment_content_main)
+                        ?.navigate(R.id.nav_converter)
+                }
             }
 
             model.uiState.observe(viewLifecycleOwner) { uiState ->
-                adapter.setItems(uiState.exchangeRates)
+                adapter.setItems(uiState.currencies)
             }
 
             model.uiState.observe(viewLifecycleOwner) { uiState ->

@@ -1,9 +1,9 @@
 package io.github.alirzaev.currencies
 
-import io.github.alirzaev.currencies.data.source.remote.dto.ExchangeRate
+import io.github.alirzaev.currencies.data.model.Currency
 
 data class MainUiState(
-    val exchangeRates: List<ExchangeRate> = emptyList(),
+    val currencies: List<Currency> = emptyList(),
     val isLoading: Boolean = false,
     val toastMessage: Int? = null
 )

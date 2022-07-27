@@ -7,9 +7,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.github.alirzaev.currencies.data.source.CurrenciesDataSource
+import io.github.alirzaev.currencies.data.source.CurrenciesRepository
+import io.github.alirzaev.currencies.data.source.DefaultCurrenciesRepository
 import io.github.alirzaev.currencies.data.source.ExchangeRatesDataSource
-import io.github.alirzaev.currencies.data.source.ExchangeRatesRepository
-import io.github.alirzaev.currencies.data.source.DefaultExchangeRatesRepository
 import io.github.alirzaev.currencies.data.source.assets.CurrenciesAssetsDataSource
 import io.github.alirzaev.currencies.data.source.remote.ExchangeRatesApi
 import io.github.alirzaev.currencies.data.source.remote.ExchangeRatesRemoteDataSource
@@ -73,12 +73,12 @@ class NetworkModule {
 
 @Module
 @InstallIn(SingletonComponent::class)
-class ExchangeRatesRepositoryModule {
+class CurrenciesRepositoryModule {
     @Provides
-    fun provideExchangeRatesRepository(
+    fun provideCurrenciesRepository(
         @AppModule.RemoteExchangeRatesDataSource exchangeRatesDataSource: ExchangeRatesDataSource,
         @AppModule.AssetsCurrenciesDataSource currenciesDataSource: CurrenciesDataSource
-    ): ExchangeRatesRepository {
-        return DefaultExchangeRatesRepository(exchangeRatesDataSource, currenciesDataSource)
+    ): CurrenciesRepository {
+        return DefaultCurrenciesRepository(exchangeRatesDataSource, currenciesDataSource)
     }
 }

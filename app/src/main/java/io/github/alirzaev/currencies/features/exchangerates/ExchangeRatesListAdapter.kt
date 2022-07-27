@@ -11,7 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import io.github.alirzaev.currencies.R
-import io.github.alirzaev.currencies.data.source.remote.dto.ExchangeRate
+import io.github.alirzaev.currencies.data.model.Currency
 
 class ExchangeRatesListAdapter : RecyclerView.Adapter<ExchangeRatesListAdapter.ViewHolder>() {
 
@@ -22,15 +22,15 @@ class ExchangeRatesListAdapter : RecyclerView.Adapter<ExchangeRatesListAdapter.V
         private val currencyNominal: TextView = itemView.findViewById(R.id.currency_nominal)
         private val exchangeRateDelta: TextView = itemView.findViewById(R.id.exchange_rate_delta)
 
-        fun bind(exchangeRate: ExchangeRate) {
+        fun bind(currency: Currency) {
             val context = itemView.context
 
-            currencyName.text = exchangeRate.name
-            exchangeRateValue.text = exchangeRate.value.toString()
-            currencyCode.text = exchangeRate.charCode
+            currencyName.text = currency.name
+            exchangeRateValue.text = currency.exchangeRate.toString()
+            currencyCode.text = currency.charCode
             currencyNominal.text =
-                context.getString(R.string.currency_nominal, exchangeRate.nominal)
-            val delta = exchangeRate.value - exchangeRate.previous
+                context.getString(R.string.currency_nominal, currency.nominal)
+            val delta = currency.exchangeRate - currency.previousExchangeRate
 
             exchangeRateDelta.text = String.format("%1$+.4f", delta)
             exchangeRateDelta.setTextColor(
@@ -48,7 +48,7 @@ class ExchangeRatesListAdapter : RecyclerView.Adapter<ExchangeRatesListAdapter.V
                     context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText(
                     context.getString(R.string.exchange_rate_clip_label),
-                    exchangeRate.value.toString()
+                    currency.exchangeRate.toString()
                 )
                 clipboard.setPrimaryClip(clip)
 
@@ -62,7 +62,7 @@ class ExchangeRatesListAdapter : RecyclerView.Adapter<ExchangeRatesListAdapter.V
         }
     }
 
-    private var exchangeRates: List<ExchangeRate> = emptyList()
+    private var currencies: List<Currency> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
@@ -75,14 +75,14 @@ class ExchangeRatesListAdapter : RecyclerView.Adapter<ExchangeRatesListAdapter.V
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(exchangeRates[position])
+        holder.bind(currencies[position])
     }
 
-    override fun getItemCount() = exchangeRates.size
+    override fun getItemCount() = currencies.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setItems(items: List<ExchangeRate>) {
-        exchangeRates = items
+    fun setItems(items: List<Currency>) {
+        currencies = items
         notifyDataSetChanged()
     }
 }

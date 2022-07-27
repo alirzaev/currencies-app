@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.github.alirzaev.currencies.data.source.ExchangeRatesRepository
+import io.github.alirzaev.currencies.data.source.CurrenciesRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val exchangeRatesRepository: ExchangeRatesRepository
+    private val currenciesRepository: CurrenciesRepository
 ) : ViewModel() {
     private val _uiState = MutableLiveData(MainUiState())
 
@@ -29,13 +29,13 @@ class MainViewModel @Inject constructor(
         _uiState.value = _uiState.value?.copy(toastMessage = message)
     }
 
-    fun fetchExchangeRates() {
+    fun fetchExchangeRates(force: Boolean = false) {
         _uiState.value = _uiState.value?.copy(isLoading = true)
 
         viewModelScope.launch {
             try {
-                val exchangeRates = exchangeRatesRepository.getExchangeRates()
-                _uiState.value = _uiState.value?.copy(exchangeRates = exchangeRates, isLoading = false)
+                val currencies = currenciesRepository.getCurrencies(force)
+                _uiState.value = _uiState.value?.copy(currencies = currencies, isLoading = false)
             } catch (ex: Exception) {
                 _uiState.value = _uiState.value?.copy(
                     isLoading = false,

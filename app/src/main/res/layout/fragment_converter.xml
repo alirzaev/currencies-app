@@ -3,48 +3,136 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
     tools:context=".features.converter.ConverterFragment">
 
-    <EditText
-        android:id="@+id/currency_converter_input"
-        android:layout_width="wrap_content"
+    <ImageButton
+        android:id="@+id/exchange_currencies_button"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="48dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="@string/currency_converter_hint"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints="" />
+        android:contentDescription="@string/exchange_currencies_content_description"
+        android:src="@drawable/ic_swap_horiz"
+        app:layout_constraintEnd_toStartOf="@+id/currency_output_button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/currency_input_button"
+        app:layout_constraintTop_toBottomOf="@id/caption_bottom_barrier" />
 
-    <TextView
+    <Button
+        android:id="@+id/currency_input_button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/exchange_currencies_button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/caption_bottom_barrier"
+        tools:ignore="TextContrastCheck"
+        tools:text="USD" />
+
+    <Button
+        android:id="@+id/currency_output_button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/exchange_currencies_button"
+        app:layout_constraintTop_toBottomOf="@id/caption_bottom_barrier"
+        tools:ignore="TextContrastCheck"
+        tools:text="RUB" />
+
+    <EditText
         android:id="@+id/currency_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
-        android:gravity="start|center_horizontal"
+        android:layout_marginTop="16dp"
+        android:hint="@string/currency_input_hint"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp"
+        android:textAlignment="center"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/currency_output"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/currency_converter_input"
-        app:layout_constraintTop_toBottomOf="@+id/currency_converter_input" />
+        app:layout_constraintEnd_toEndOf="@+id/currency_input_button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/currency_input_button"
+        app:layout_constraintTop_toBottomOf="@+id/currency_input_button"
+        tools:ignore="TextContrastCheck,DuplicateSpeakableTextCheck" />
 
-    <TextView
-        android:id="@+id/currency_output"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/currency_output_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center_horizontal|end"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/currency_output_button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/currency_output_button"
+        app:layout_constraintTop_toBottomOf="@+id/currency_output_button">
+
+        <EditText
+            android:id="@+id/currency_output"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:gravity="center"
+            android:hint="@string/currency_input_hint"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/copy_value_to_clipboard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TextContrastCheck" />
+
+        <ImageButton
+            android:id="@+id/copy_value_to_clipboard"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/copy_value_to_clipboard"
+            android:src="@drawable/ic_content_copy"
+            app:layout_constraintBottom_toBottomOf="@+id/currency_output"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/currency_output"
+            app:layout_constraintTop_toTopOf="@+id/currency_output" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/currency_output_caption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:text="@string/output_currency_label"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/currency_converter_input"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/currency_input"
-        app:layout_constraintTop_toBottomOf="@+id/currency_converter_input" />
+        app:layout_constraintEnd_toEndOf="@+id/currency_output_button"
+        app:layout_constraintStart_toStartOf="@+id/currency_output_button"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/currency_input_caption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:text="@string/input_currency_label"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/currency_input_button"
+        app:layout_constraintStart_toStartOf="@+id/currency_input_button"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/caption_bottom_barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="currency_input_caption,currency_output_caption" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

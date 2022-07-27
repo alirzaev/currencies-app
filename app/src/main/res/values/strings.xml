@@ -4,9 +4,20 @@
     <string name="exchange_rate_clip_label">Курс валюты</string>
     <string name="exchange_rate_copied_to_clipboard">Курс валюты скопирован в буфер обмена</string>
     <string name="currency_converter">Конвертер валют</string>
+    <string name="currency_chooser">Выбор валюты</string>
     <string name="about_app">О приложении</string>
-    <string name="currency_converter_hint">1 usd in rub</string>
+    <string name="currency_value">%1$.2f</string>
     <string name="currency_value_with_code">%1$.2f %2$s</string>
     <string name="currency_nominal">Номинал: %1$d</string>
     <string name="about_app_description">Приложение для просмотра официальных курсов валют Банка России</string>
+    <string name="please_wait_data_is_being_loaded">Пожалуйста подождите, данные загружаются</string>
+    <string name="exchange_rates_are_not_loaded">Курсы валют не загружены</string>
+    <string name="input_currency_label">У меня есть:</string>
+    <string name="output_currency_label">Хочу купить:</string>
+    <string name="exchange_currencies_content_description">Поменять местами валюты</string>
+    <string name="copy_value_to_clipboard">Скопировать текст в буфер обмена</string>
+    <string name="currency_input_hint">1000,00</string>
+    <string name="converted_value_clip_label">Результат ковертации</string>
+    <string name="converted_value_copied_to_clipboard">Данные скопированы в буфер обмена</string>
+    <string name="currency_button_placeholder">Выбрать</string>
 </resources>
