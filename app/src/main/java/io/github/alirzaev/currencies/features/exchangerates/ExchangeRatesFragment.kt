@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.color.MaterialColors
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.alirzaev.currencies.MainViewModel
 import io.github.alirzaev.currencies.R
@@ -40,6 +41,13 @@ class ExchangeRatesFragment : Fragment() {
             refreshLayout.setOnRefreshListener {
                 model.fetchExchangeRates(true)
             }
+            refreshLayout.setColorSchemeColors(
+                MaterialColors.getColor(
+                    requireContext(),
+                    androidx.appcompat.R.attr.colorPrimary,
+                    R.color.black
+                )
+            )
 
             exchangeRatesListView.addItemDecoration(
                 DividerItemDecoration(
