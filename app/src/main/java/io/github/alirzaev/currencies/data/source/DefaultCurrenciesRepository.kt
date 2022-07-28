@@ -8,8 +8,6 @@ class DefaultCurrenciesRepository @Inject constructor(
     private val exchangeRatesDataSource: ExchangeRatesDataSource,
     private val currenciesDataSource: CurrenciesDataSource
 ) : CurrenciesRepository {
-    private var cachedCurrencies: List<Currency>? = null
-
     @Suppress("BlockingMethodInNonBlockingContext")
     override suspend fun getCurrencies(force: Boolean): List<Currency> {
         val localCached = cachedCurrencies
@@ -43,5 +41,9 @@ class DefaultCurrenciesRepository @Inject constructor(
             .toList().also {
                 cachedCurrencies = it
             }
+    }
+
+    companion object {
+        private var cachedCurrencies: List<Currency>? = null
     }
 }
