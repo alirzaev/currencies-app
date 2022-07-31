@@ -4,11 +4,14 @@ import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
 import androidx.recyclerview.widget.RecyclerView
 import io.github.alirzaev.currencies.R
 import io.github.alirzaev.currencies.data.model.Currency
@@ -22,6 +25,16 @@ class ExchangeRatesListAdapter : RecyclerView.Adapter<ExchangeRatesListAdapter.V
         private val currencyNominal: TextView = itemView.findViewById(R.id.currency_nominal)
         private val exchangeRateDelta: TextView = itemView.findViewById(R.id.exchange_rate_delta)
 
+        @ColorInt
+        private fun getColor(@ColorRes id: Int): Int {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                itemView.context.resources.getColor(id, itemView.context.theme)
+            } else {
+                @Suppress("DEPRECATION")
+                itemView.context.resources.getColor(id)
+            }
+        }
+
         fun bind(currency: Currency) {
             val context = itemView.context
 
@@ -34,13 +47,7 @@ class ExchangeRatesListAdapter : RecyclerView.Adapter<ExchangeRatesListAdapter.V
 
             exchangeRateDelta.text = String.format("%1$+.4f", delta)
             exchangeRateDelta.setTextColor(
-                if (delta > 0) context.resources.getColor(
-                    R.color.success,
-                    context.theme
-                ) else context.resources.getColor(
-                    R.color.danger,
-                    context.theme
-                )
+                if (delta > 0) getColor(R.color.success) else getColor(R.color.danger)
             )
 
             itemView.setOnClickListener {
