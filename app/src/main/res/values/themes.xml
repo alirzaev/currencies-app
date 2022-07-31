@@ -17,6 +17,13 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
     </style>
 
+    <!-- Splash screen theme. -->
+    <style name="Theme.Currencies.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_splashscreen</item>
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="postSplashScreenTheme">@style/Theme.Currencies.NoActionBar</item>
+    </style>
+
     <style name="Theme.Currencies.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
