@@ -13,4 +13,11 @@
         <item name="android:statusBarColor">@color/dark_grey</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <!-- Splash screen theme. -->
+    <style name="Theme.Currencies.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_splashscreen</item>
+        <item name="windowSplashScreenBackground">@color/dark_grey</item>
+        <item name="postSplashScreenTheme">@style/Theme.Currencies.NoActionBar</item>
+    </style>
 </resources>
