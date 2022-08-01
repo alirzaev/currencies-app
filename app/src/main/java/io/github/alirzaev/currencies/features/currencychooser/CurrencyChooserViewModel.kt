@@ -21,7 +21,7 @@ class CurrencyChooserViewModel @Inject constructor(
     fun fetchCurrencies() {
         viewModelScope.launch {
             val result = kotlin.runCatching {
-                (currenciesRepository.getCurrencies() + arrayListOf(
+                (currenciesRepository.getCachedCurrencies() + arrayListOf(
                     Currency(
                         "",
                         "643",

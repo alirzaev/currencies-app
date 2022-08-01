@@ -18,7 +18,7 @@ class MainViewModel @Inject constructor(
     val uiState = _uiState as LiveData<MainUiState>
 
     init {
-        fetchExchangeRates()
+        fetchExchangeRates(true)
     }
 
     fun toastMessageShown() {
@@ -34,14 +34,25 @@ class MainViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val currencies = currenciesRepository.getCurrencies(force)
-                _uiState.value = _uiState.value?.copy(currencies = currencies, isLoading = false)
+                val currencies = currenciesRepository.getCachedCurrencies()
+                _uiState.value = _uiState.value?.copy(currencies = currencies)
             } catch (ex: Exception) {
-                _uiState.value = _uiState.value?.copy(
-                    isLoading = false,
-                    toastMessage = R.string.failed_to_fetch_data
-                )
             }
+
+            if (force) {
+                try {
+                    val currencies = currenciesRepository.getCurrencies()
+                    _uiState.value = _uiState.value?.copy(currencies = currencies)
+
+                    currenciesRepository.saveCurrencies(currencies)
+                } catch (ex: Exception) {
+                    _uiState.value = _uiState.value?.copy(
+                        toastMessage = R.string.failed_to_fetch_data
+                    )
+                }
+            }
+
+            _uiState.value = _uiState.value?.copy(isLoading = false)
         }
     }
 }

@@ -3,18 +3,13 @@ package io.github.alirzaev.currencies.features.converter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.alirzaev.currencies.data.model.Currency
-import io.github.alirzaev.currencies.data.source.CurrenciesRepository
 import io.github.alirzaev.currencies.utils.convertCurrency
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ConverterViewModel @Inject constructor(
-    private val currenciesRepository: CurrenciesRepository
-) : ViewModel() {
+class ConverterViewModel @Inject constructor() : ViewModel() {
     private val _uiState = MutableLiveData(ConverterUiState(null, null))
 
     val uiState = _uiState as LiveData<ConverterUiState>
